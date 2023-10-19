@@ -63,7 +63,7 @@ const SignupForm = () => {
             placeholder='Your name'
             name='name'
             onChange={handleInputChange}
-            value={userFormData.email}
+            value={userFormData.name}
             required
           />
           <Form.Control.Feedback type='invalid'>Name is required!</Form.Control.Feedback>
