@@ -7,7 +7,7 @@ import Auth from '../utils/auth';
 
 const SignupForm = () => {
   // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '', name: '' });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
@@ -43,6 +43,7 @@ const SignupForm = () => {
       username: '',
       email: '',
       password: '',
+      name: '',
     });
   };
 
@@ -79,6 +80,19 @@ const SignupForm = () => {
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className='mb-3'>
+          <Form.Label htmlFor='name'>Name</Form.Label>
+          <Form.Control
+            type='name'
+            placeholder='Your name'
+            name='name'
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Name is required!</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className='mb-3'>
