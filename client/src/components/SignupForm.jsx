@@ -57,6 +57,19 @@ const SignupForm = () => {
         </Alert>
 
         <Form.Group className='mb-3'>
+          <Form.Label htmlFor='name'>Name</Form.Label>
+          <Form.Control
+            type='name'
+            placeholder='Your name'
+            name='name'
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Name is required!</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className='mb-3'>
           <Form.Label htmlFor='username'>Username</Form.Label>
           <Form.Control
             type='text'
@@ -82,18 +95,7 @@ const SignupForm = () => {
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className='mb-3'>
-          <Form.Label htmlFor='name'>Name</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Your name'
-            name='name'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Name is required!</Form.Control.Feedback>
-        </Form.Group>
+
 
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='password'>Password</Form.Label>
