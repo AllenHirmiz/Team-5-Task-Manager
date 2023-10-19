@@ -4,8 +4,7 @@ type User {
     username: String!
     email: String!
     password: String!
-    firstname: String!
-    lastname: String!
+    name: String
   }
 
   type Todo {
@@ -26,7 +25,7 @@ type User {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, firstname: String!, lastname: String!,): Auth
+    addUser(username: String!, email: String!, password: String!, name: String,): Auth
     login(email: String!, password: String!): Auth
   }
 `;
