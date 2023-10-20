@@ -19,6 +19,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",
-    "@apollo/server": "^4.9.3"
+    "@apollo/server": "^4.9.3",
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.4"
   }
 }
