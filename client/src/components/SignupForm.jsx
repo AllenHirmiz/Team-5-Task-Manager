@@ -42,7 +42,7 @@ export default function SignupCard() {
           <Stack spacing={4}>
   
               <Box>
-                <FormControl id="fusername" isRequired>
+                <FormControl id="username" isRequired>
                   <FormLabel>User Name</FormLabel>
                   <Input type="text" />
                 </FormControl>
