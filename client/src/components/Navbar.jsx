@@ -63,7 +63,7 @@ const AppNavBar = () => {
               _hover={{ bg: "#00dee8" }}
               onClick={openSignUpModal}
             >
-              Sign In
+              Sign Up
             </Button>
           </Box>
         </Flex>
