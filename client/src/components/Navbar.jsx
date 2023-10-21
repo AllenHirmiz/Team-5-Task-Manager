@@ -76,8 +76,8 @@ const AppNavBar = () => {
           <ModalHeader>Login </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Add your login and sign-in forms or content here */}
-            {/* For example, you can include input fields and buttons */}
+            {/* Add the login here  */}
+            {/*  input fields and buttons */}
             <LoginForm />
           </ModalBody>
           <ModalFooter>
@@ -88,15 +88,15 @@ const AppNavBar = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* Modal */}
+      {/* Sign Up Modal */}
       <Modal isOpen={showSignUpModal} onClose={closeSignUpModal}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Sign In</ModalHeader>
+          <ModalHeader>Sign Up</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Add your login and sign-in forms or content here */}
-            {/* For example, you can include input fields and buttons */}
+            {/* Add the SignUp  forms or content here */}
+            {/* include input fields and buttons */}
             <SignUpForm />
           </ModalBody>
           <ModalFooter>
