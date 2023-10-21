@@ -95,7 +95,7 @@ export default function SignupCard() {
   )
 }
 
-// bootstrap version here 
+// Comment out bootstrap version here 
 
 // import React, { useState } from 'react';
 // import { useNavigate } from "react-router-dom";
