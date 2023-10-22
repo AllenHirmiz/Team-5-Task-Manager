@@ -1,11 +1,9 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 import App from './App.jsx'
-// import SearchBooks from './pages/SearchBooks'
-import SavedBooks from './pages/SavedBooks'
 import LandingPage from './pages/LandingPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,8 +15,8 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />
       }, {
-        path: '/saved',
-        element: <SavedBooks />
+        path: '/profile',
+        element: <ProfilePage />
       }
     ]
   }
