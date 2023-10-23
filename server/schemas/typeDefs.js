@@ -24,9 +24,18 @@ type User {
     me: User
   }
 
+  type Query {
+    todo: Todo
+  }
+
+  type Query {
+    comment: User
+  }
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!, name: String,): Auth
     login(email: String!, password: String!): Auth
+    addTodo(username: String,title:String, description: String): Todo
   }
 `;
 
