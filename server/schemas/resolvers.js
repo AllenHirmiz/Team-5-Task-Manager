@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Todo } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -14,10 +14,28 @@ const resolvers = {
 
   Mutation: {
     //create a new user and sign a token for that user
-    addUser: async (parent, { username, email, password, name }) => {
+    addUser: async (parent, { username, email, password, name }, context) => {
       const user = await User.create({ username, email, password, name });
       const token = signToken(user);
       return { token, user };
+    },
+    //create a new todo
+    addTodo: async (
+      parent,
+      { username, title, description, datecreated, duedate, status },
+      context
+    ) => {
+      //console.log(context);
+      const todo = await Todo.create({
+        username,
+        title,
+        description,
+        datecreated,
+        duedate,
+        status,
+      });
+      console.log(todo);
+      return todo;
     },
     //log in the user with the appropriate credentials, sign a token
     login: async (parent, { email, password }) => {

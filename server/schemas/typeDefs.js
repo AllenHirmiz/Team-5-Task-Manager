@@ -1,4 +1,14 @@
 const typeDefs = `
+type Todo {
+  _id: ID
+  username: String
+  title: String
+  description: String
+  datecreated: String
+  duedate: String
+  status: String
+}
+
 type User {
     _id: ID
     username: String!
@@ -7,13 +17,7 @@ type User {
     name: String
   }
 
-  type Todo {
-    _id: ID
-    todoId: String!
-    title: String!
-    description: String!
-    createdDate: String!
-  }
+  
 
   type Auth {
     token: ID!
@@ -33,9 +37,9 @@ type User {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, name: String,): Auth
+    addUser(username: String!, email: String!, password: String!, name: String): Auth
     login(email: String!, password: String!): Auth
-    addTodo(username: String,title:String, description: String): Todo
+    addTodo(username: String!,title:String!, description: String!, datecreated: String, duedate: String, status: String): Todo
   }
 `;
 
