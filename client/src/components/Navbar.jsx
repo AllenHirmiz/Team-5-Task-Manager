@@ -5,7 +5,7 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import Profile from '../pages/ProfilePage';
 import Auth from '../utils/auth';
-import logo from '../assets/images/logo5.png';
+import logo from '../assets/images/logo.png';
 
 const AppNavbar = () => {
   // set modal display state
