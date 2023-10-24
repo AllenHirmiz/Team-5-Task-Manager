@@ -30,7 +30,7 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to='/Profile'>
                     My Profile
                   </Nav.Link>
-                  <Nav.Link as={Link} to='/Profile'>
+                  <Nav.Link as={Link} to='/Dashboard'>
                     Dashboard
                   </Nav.Link>
                   <Nav.Link as={Link} to='/Profile'>

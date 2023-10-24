@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,9 @@ const router = createBrowserRouter([
       }, {
         path: '/profile',
         element: <ProfilePage />
+      }, {
+        path: '/dashboard',
+        element: <Dashboard />
       }
     ]
   }
