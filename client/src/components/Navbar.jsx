@@ -33,7 +33,7 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to='/Dashboard'>
                     Dashboard
                   </Nav.Link>
-                  <Nav.Link as={Link} to='/Profile'>
+                  <Nav.Link as={Link} to='/Contact'>
                     Contact Us
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
