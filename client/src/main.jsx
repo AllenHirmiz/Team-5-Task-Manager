@@ -5,6 +5,7 @@ import App from './App.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import ContactUs from './pages/ContactUs.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,9 @@ const router = createBrowserRouter([
       }, {
         path: '/dashboard',
         element: <Dashboard />
+      }, {
+        path:'/contact',
+        element: <ContactUs />
       }
     ]
   }
