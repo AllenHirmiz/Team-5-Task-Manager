@@ -1,193 +1,89 @@
-import { useEffect, useRef, useState } from "react";
-import { Link as RouterLink, redirect } from "react-router-dom";
+'use client'
+
 import {
-  Box,
-  // Button,
-  Container,
-  Flex,
   Heading,
+  Avatar,
+  Box,
+  Center,
   Image,
-  // Link,
-  Stack,
+  Flex,
   Text,
-} from "@chakra-ui/react";
-import { toast } from "react-toastify"; // https://www.npmjs.com/package/react-toastify React-Toastify allows you to add notifications to your app with ease
-import UserImage from "../assets/images/user.png";
+  Stack,
+  Button,
+  useColorModeValue,
+} from '@chakra-ui/react'
 
 function ProfilePage() {
-  const loggedIn = useRef(null);
-  const [isLoggedIn, setLoggedIn] = useState(loggedIn);
-  const [loggedInUser, setLoggedInUser] = useState({});
-  const [userData, setUserData] = useState({});
-  const [isDataLoading, setIsDataLoading] = useState(false);
-  const [userProjects, setProjectsData] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsDataLoading(true);
-      const result = await fetch("/auth/isLoggedIn", { method: "GET" });
-      const parsedResult = await result.json();
-      loggedIn.current = parsedResult.isLoggedIn;
-      setLoggedInUser(parsedResult.user);
-      setLoggedIn(loggedIn.current);
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchUserData() {
-      if (loggedInUser && loggedInUser._id) {
-        const userDataResult = await fetch(`/userData/${loggedInUser._id}`, {
-          method: "GET",
-        });
-        const parsedUserDataResult = await userDataResult.json();
-        setUserData(parsedUserDataResult);
-        setIsDataLoading(false);
-      }
-    }
-    fetchUserData();
-  }, [loggedInUser]);
-
-  useEffect(() => {
-    async function fetchProjectData() {
-      if (loggedInUser) {
-        const dataResult = await fetch(
-          `/projects/${loggedInUser._id}/profile`,
-          {
-            method: "GET",
+  return (
+    <Center py={6}>
+      <Box
+        maxW={'270px'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        boxShadow={'2xl'}
+        rounded={'md'}
+        overflow={'hidden'}>
+        <Image
+          h={'120px'}
+          w={'full'}
+          src={
+            'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
           }
-        );
-        const parsedProjectsData = await dataResult.json();
-        setProjectsData(parsedProjectsData);
-      } else {
-        toast.error("Please sign in!");
-        setLoggedIn(false);
-      }
-    }
-    fetchProjectData();
-  }, [loggedInUser]);
+          objectFit="cover"
+          alt="#"
+        />
+        <Flex justify={'center'} mt={-12}>
+          <Avatar
+            size={'xl'}
+            src={
+              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+            }
+            css={{
+              border: '2px solid white',
+            }}
+          />
+        </Flex>
 
-  // const logoutPressed = () => {
-  //   setLoggedIn(false);
-  //   setLoggedInUser(null);
-  //   props.logoutPressed();
-  // };
-
-  if (isLoggedIn) {
-    return (
-      <Flex className="profile-cont">
-        <Box w="100%">
-          <Container maxW="container.lg">
-            <Heading as="h1" mt="3" fontSize="xl">
-              Profile:
+        <Box p={6}>
+          <Stack spacing={0} align={'center'} mb={5}>
+            <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+              John Doe
             </Heading>
-            <Stack
-              className="main-body"
-              align="center"
-              mt="4"
-              spacing="5"
-            >
-              {isDataLoading && (
-                // <Loader type="Puff" color="#005252" height={500} width={500} />
-                <>
-                  Loading...
-                </>
-              )}
-              {!isDataLoading && (
-                <Flex justify="center">
-                  <Stack
-                    direction={{ base: "column", md: "row" }}
-                    spacing="5"
-                  >
-                    <Box>
-                      <Image
-                        src={UserImage}
-                        alt="Admin"
-                        rounded="full"
-                        boxSize="120px"
-                      />
-                      <Text textAlign="center" mt="3" fontWeight="bold">
-                        {userData.fullname}
-                      </Text>
-                      {/* <Link as={RouterLink} to="/profile/update">
-                        <Button colorScheme="teal" mt="3">
-                          Edit Profile
-                        </Button>
-                      </Link> */}
-                    </Box>
-                    <Box>
+            <Text color={'gray.500'}>Frontend Developer</Text>
+          </Stack>
 
-                      <Text fontSize="md" fontWeight="bold">
-                        Full Name
-                      </Text>
-
-                      <Text color="teal.500">{userData.fullname}</Text>
-                      <Text fontSize="md" fontWeight="bold">
-                        Job
-                      </Text>
-
-                      <Text color="teal.500">{userData.job}</Text>
-                      <Text fontSize="md" fontWeight="bold">
-                        Institution
-                      </Text>
-
-                      <Text color="teal.500">{userData.institution}</Text>
-
-                      <Text fontSize="md" fontWeight="bold">
-                        Email
-                      </Text>
-
-                      <Text color="teal.500">{userData.username}</Text>
-
-                      <Text fontSize="md" fontWeight="bold">
-                        Location
-                      </Text>
-
-                      <Text color="teal.500">{userData.location}</Text>
-
-                    </Box>
-                  </Stack>
-                </Flex>
-              )}
-              <Heading as="h3" mt="4" color="#005252" fontSize="lg">
-                Most Recent Projects
-              </Heading>
-              <Stack
-                direction="row"
-                flexWrap="wrap"
-                justify="center"
-                mt="4"
-                spacing="4"
-              >
-                {/* {!isDataLoading &&
-                  userProjects.map((project) => (
-                    <Link
-                      key={project._id}
-                      as={RouterLink}
-                      to={"/projects/" + project._id}
-                    >
-                      <ProjectCard
-                        key={project._id}
-                        name={project.projectName}
-                        description={project.projectDescription}
-                      />
-                    </Link>
-                  ))} */}
-              </Stack>
+          <Stack direction={'row'} justify={'center'} spacing={6}>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>23k</Text>
+              <Text fontSize={'sm'} color={'gray.500'}>
+                Followers
+              </Text>
             </Stack>
-          </Container>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>23k</Text>
+              <Text fontSize={'sm'} color={'gray.500'}>
+                Followers
+              </Text>
+            </Stack>
+          </Stack>
+
+          <Button
+            w={'full'}
+            mt={8}
+            bg={useColorModeValue('#151f21', 'gray.900')}
+            color={'white'}
+            rounded={'md'}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}>
+            Follow
+          </Button>
         </Box>
-        {/* <Footer /> */}
-      </Flex>
-    );
-  } else {
-    // return <Redirect to="/login" />;
-    return redirect("/login")
-  }
+      </Box>
+    </Center>
+  )
 }
 
-// Profile.propTypes = {
-//   logoutPressed: PropTypes.func.isRequired,
-// };
 
 export default ProfilePage;

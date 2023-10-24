@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
+import { ChakraProvider } from '@chakra-ui/react'
 import Navbar from './components/Navbar';
 
 const httpLink = createHttpLink({
@@ -36,10 +36,12 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    <ChakraProvider>
     <ApolloProvider client={client}>
       <Navbar />
       <Outlet />
       </ApolloProvider>
+    </ChakraProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import '@chakra-ui/react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App.jsx'
 import LandingPage from './pages/LandingPage.jsx'
