@@ -1,386 +1,488 @@
-import { useEffect, useRef, useState } from "react";
-import { Link as RouterLink, redirect } from "react-router-dom";
+// import React, { useState } from "react";
+// import { useQuery, useMutation } from "@apollo/client";
+// import {
+//   Box,
+//   Button,
+//   Table,
+//   Thead,
+//   Tbody,
+//   Tr,
+//   Th,
+//   Td,
+//   Input,
+//   FormControl,
+//   FormLabel,
+//   Textarea,
+//   Select,
+//   Modal,
+//   ModalOverlay,
+//   ModalContent,
+//   ModalHeader,
+//   ModalCloseButton,
+//   ModalBody,
+//   ModalFooter,
+//   Text,
+// } from "@chakra-ui/react";
+// import { gql } from "@apollo/client";
+
+// const GET_TODOS = gql`
+//   query GetTodosQuery {
+//     todos {
+//       _id
+//       username
+//       title
+//       description
+//       datecreated
+//       duedate
+//       status
+//     }
+//   }
+// `;
+
+// // NAMED GraphQL mutation to add a task
+// const ADD_TODO = gql`
+//   mutation AddTodoMutation(
+//     $username: String!
+//     $title: String!
+//     $description: String!
+//     $datecreated: String!
+//     $duedate: String!
+//     $status: String!
+//   ) {
+//     addTodo(
+//       username: $username
+//       title: $title
+//       description: $description
+//       datecreated: $datecreated
+//       duedate: $duedate
+//       status: $status
+//     ) {
+//       _id
+//       username
+//       title
+//       description
+//       datecreated
+//       duedate
+//       status
+//     }
+//   }
+// `;
+
+// function Dashboard() {
+//   const [newTask, setNewTask] = useState({
+//     username: "",
+//     title: "",
+//     description: "",
+//     dateCreated: new Date().toLocaleDateString(),
+//     dueDate: "",
+//     status: "Pending",
+//   });
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [editTaskIndex, setEditTaskIndex] = useState(null);
+
+//   const { loading, error, data } = useQuery(GET_TODOS);
+//   const [addTodo] = useMutation(ADD_TODO, {
+//     refetchQueries: [{ query: GET_TODOS }],
+//     onError: (err) => {
+//       console.error("Error adding task:", err);
+//     },
+//   });
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+//     setNewTask((prevTask) => ({
+//       ...prevTask,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSaveTask = async () => {
+//     try {
+//       await addTodo({
+//         variables: {
+//           ...newTask,
+//           datecreated: new Date().toISOString(),
+//         },
+//       });
+//       setIsOpen(false);
+//     } catch (err) {
+//       console.error("Error saving task:", err);
+//     }
+//   };
+
+//   // Render fetched tasks and handle loading and errors
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>Error: {error.message}</p>;
+
+//   const tasks = data.todos;
+
+//   const handleDelete = (index) => {
+//     const updatedTasks = tasks.filter((_, i) => i !== index);
+//     setTasks(updatedTasks);
+//   };
+
+//   const handleEdit = (index) => {
+//     setEditTaskIndex(index);
+//     setNewTask(tasks[index]);
+//     setIsOpen(true);
+//   };
+
+//   return (
+//     <Box p={4} bg="teal.50" borderRadius="md">
+//       {newTask.username && (
+//         <Text fontSize="2xl" fontWeight="bold" color="teal.800" mb={4}>
+//           Task Manager for {newTask.username}
+//         </Text>
+//       )}
+//       <Button colorScheme="teal" mb={4} mt={2} onClick={() => setIsOpen(true)}>
+//         Add Task
+//       </Button>
+
+//       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+//         <ModalOverlay />
+//         <ModalContent>
+//           <ModalHeader color="teal.600">
+//             {editTaskIndex !== null ? "Edit Task" : "Add New Task"}
+//           </ModalHeader>
+//           <ModalCloseButton />
+//           <ModalBody>
+//             <FormControl mt={4}>
+//               <FormLabel>Username</FormLabel>
+//               <Input
+//                 type="text"
+//                 name="username"
+//                 value={newTask.username}
+//                 onChange={handleInputChange}
+//               />
+//             </FormControl>
+//             <FormControl mt={4}>
+//               <FormLabel>Title</FormLabel>
+//               <Input
+//                 type="text"
+//                 name="title"
+//                 value={newTask.title}
+//                 onChange={handleInputChange}
+//               />
+//             </FormControl>
+//             <FormControl mt={4}>
+//               <FormLabel>Description</FormLabel>
+//               <Textarea
+//                 name="description"
+//                 value={newTask.description}
+//                 onChange={handleInputChange}
+//               />
+//             </FormControl>
+//             <FormControl mt={4}>
+//               <FormLabel>Due Date</FormLabel>
+//               <Input
+//                 type="date"
+//                 name="dueDate"
+//                 value={newTask.dueDate}
+//                 onChange={handleInputChange}
+//               />
+//             </FormControl>
+//             <FormControl mt={4}>
+//               <FormLabel>Status</FormLabel>
+//               <Select
+//                 name="status"
+//                 value={newTask.status}
+//                 onChange={handleInputChange}
+//               >
+//                 <option value="Pending">Pending</option>
+//                 <option value="Completed">Completed</option>
+//                 <option value="Delayed">Delayed</option>
+//               </Select>
+//             </FormControl>
+//           </ModalBody>
+//           <ModalFooter>
+//             <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+//               {editTaskIndex !== null ? "Update" : "Save"}
+//             </Button>
+//             <Button
+//               variant="outline"
+//               colorScheme="teal"
+//               onClick={() => setIsOpen(false)}
+//             >
+//               Cancel
+//             </Button>
+//           </ModalFooter>
+//         </ModalContent>
+//       </Modal>
+
+//       <Table
+//         variant="striped"
+//         size="md"
+//         borderWidth="1px"
+//         borderColor="teal.200"
+//         borderRadius="md"
+//       >
+//         <Thead bg="teal.600">
+//           <Tr>
+//             <Th color="white">Username</Th>
+//             <Th color="white">Title</Th>
+//             <Th color="white">Description</Th>
+//             <Th color="white">Date Created</Th>
+//             <Th color="white">Due Date</Th>
+//             <Th color="white">Status</Th>
+//             <Th color="white">Actions</Th>
+//           </Tr>
+//         </Thead>
+//         <Tbody>
+//           {tasks.map((task, index) => (
+//             <Tr key={index} _hover={{ bg: "teal.100" }}>
+//               <Td>{task.username}</Td>
+//               <Td>{task.title}</Td>
+//               <Td>{task.description}</Td>
+//               <Td>{task.dateCreated}</Td>
+//               <Td>{task.dueDate}</Td>
+//               <Td>{task.status}</Td>
+//               <Td>
+//                 <Button
+//                   colorScheme="teal"
+//                   size="sm"
+//                   mr={2}
+//                   variant="outline"
+//                   onClick={() => handleEdit(index)}
+//                 >
+//                   Edit
+//                 </Button>
+//                 <Button
+//                   colorScheme="red"
+//                   size="sm"
+//                   onClick={() => handleDelete(index)}
+//                 >
+//                   Delete
+//                 </Button>
+//               </Td>
+//             </Tr>
+//           ))}
+//         </Tbody>
+//       </Table>
+//     </Box>
+//   );
+// }
+//////////////////////////////////////////////////////////////
+
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
-  ChakraProvider,
-  Container,
-  Image,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
   Input,
-  Stack,
-  Text,
-  VStack,
-  Heading,
+  FormControl,
+  FormLabel,
   Textarea,
-  Flex,
-  InputGroup,
-  InputLeftAddon,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Checkbox,
-  // DatePicker,
   Select,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Text,
 } from "@chakra-ui/react";
 
-import { toast } from "react-toastify"; // https://www.npmjs.com/package/react-toastify React-Toastify allows you to add notifications to your app with ease
-import UserImage from "../assets/images/user.png";
-
 function Dashboard() {
-  const loggedIn = useRef(null);
-  const [isLoggedIn, setLoggedIn] = useState(loggedIn);
-  const [loggedInUser, setLoggedInUser] = useState({});
-  const [userData, setUserData] = useState({});
-  const [isDataLoading, setIsDataLoading] = useState(false);
-  const [userProjects, setProjectsData] = useState([]);
+  // Load tasks from local storage or default to empty array
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
 
-  const [tasks, setTasks] = useState([]);
-  const [taskInput, setTaskInput] = useState("");
-  const [titleInput, setTitleInput] = useState("");
-  const [descriptionInput, setDescriptionInput] = useState("");
-  const [dueDateInput, setDueDateInput] = useState("");
-  const [editIndex, setEditIndex] = useState(-1);
+  const [newTask, setNewTask] = useState({
+    username: "",
+    title: "",
+    description: "",
+    dateCreated: new Date().toLocaleDateString(),
+    dueDate: "",
+    status: "Pending",
+  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [editTaskIndex, setEditTaskIndex] = useState(null);
 
-  // Create an array of predefined due dates
-  const dueDateOptions = [
-    "No due date",
-    "Today",
-    "Tomorrow",
-    "This week",
-    "Next week",
-    "Custom",
-  ];
+  // Save tasks to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
-  const handleAddTask = () => {
-    if (taskInput.trim() === "") return;
-
-    const newTask = {
-      title: titleInput || "Untitled",
-      description: descriptionInput || "No description",
-      dueDate: dueDateInput || "No due date",
-      completed: false,
-    };
-
-    setTasks([...tasks, newTask]);
-    setTaskInput("");
-    setTitleInput("");
-    setDescriptionInput("");
-    setDueDateInput("");
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
   };
 
-  const handleDeleteTask = (index) => {
+  const handleSaveTask = () => {
+    if (editTaskIndex !== null) {
+      const updatedTasks = [...tasks];
+      updatedTasks[editTaskIndex] = newTask;
+      setTasks(updatedTasks);
+      setEditTaskIndex(null);
+    } else {
+      setTasks([...tasks, newTask]);
+    }
+    setNewTask({
+      username: "",
+      title: "",
+      description: "",
+      dateCreated: new Date().toLocaleDateString(),
+      dueDate: "",
+      status: "Pending",
+    });
+    setIsOpen(false);
+  };
+
+  const handleDelete = (index) => {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
   };
 
-  const handleEditTask = (index) => {
-    setEditIndex(index);
+  const handleEdit = (index) => {
+    setEditTaskIndex(index);
+    setNewTask(tasks[index]);
+    setIsOpen(true);
   };
 
-  const handleSaveEdit = (index) => {
-    setEditIndex(-1);
-  };
+  return (
+    <Box p={4} bg="teal.50" borderRadius="md">
+      {newTask.username && (
+        <Text fontSize="2xl" fontWeight="bold" color="teal.800" mb={4}>
+          Task Manager for {newTask.username}
+        </Text>
+      )}
+      <Button colorScheme="teal" mb={4} mt={2} onClick={() => setIsOpen(true)}>
+        Add Task
+      </Button>
 
-  const handleCancelEdit = () => {
-    setEditIndex(-1);
-  };
-
-  const handleToggleCompletion = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    setTasks(updatedTasks);
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsDataLoading(true);
-      const result = await fetch("/auth/isLoggedIn", { method: "GET" });
-      const parsedResult = await result.json();
-      loggedIn.current = parsedResult.isLoggedIn;
-      setLoggedInUser(parsedResult.user);
-      setLoggedIn(loggedIn.current);
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchUserData() {
-      if (loggedInUser && loggedInUser._id) {
-        const userDataResult = await fetch(`/userData/${loggedInUser._id}`, {
-          method: "GET",
-        });
-        const parsedUserDataResult = await userDataResult.json();
-        setUserData(parsedUserDataResult);
-        setIsDataLoading(false);
-      }
-    }
-    fetchUserData();
-  }, [loggedInUser]);
-
-  useEffect(() => {
-    async function fetchProjectData() {
-      if (loggedInUser) {
-        const dataResult = await fetch(
-          `/projects/${loggedInUser._id}/profile`,
-          {
-            method: "GET",
-          }
-        );
-        const parsedProjectsData = await dataResult.json();
-        setProjectsData(parsedProjectsData);
-      } else {
-        toast.error("Please sign in!");
-        setLoggedIn(false);
-      }
-    }
-    fetchProjectData();
-  }, [loggedInUser]);
-
-  // const logoutPressed = () => {
-  //   setLoggedIn(false);
-  //   setLoggedInUser(null);
-  //   props.logoutPressed();
-  // };
-
-  if (isLoggedIn) {
-    return (
-      <Flex className="profile-cont">
-        <Box w="100%">
-          <Container maxW="container.lg">
-            <Heading as="h1" mt="3" fontSize="xl">
-              Dashboard:
-            </Heading>
-            <Stack className="main-body" align="center" mt="4" spacing="5">
-              {isDataLoading && (
-                // <Loader type="Puff" color="#005252" height={500} width={500} />
-                <>DASHBOARD........</>
-              )}
-              {!isDataLoading && (
-                <Flex justify="center">
-                  <Stack direction={{ base: "column", md: "row" }} spacing="5">
-                    <Box>
-                      <Image
-                        src={UserImage}
-                        alt="Admin"
-                        rounded="full"
-                        boxSize="120px"
-                      />
-                      <Text textAlign="center" mt="3" fontWeight="bold">
-                        {userData.fullname}
-                      </Text>
-                      {/* <Link as={RouterLink} to="/profile/update">
-                        <Button colorScheme="teal" mt="3">
-                          Edit Profile
-                        </Button>
-                      </Link> */}
-                    </Box>
-                    <Box>
-                      <Text fontSize="md" fontWeight="bold">
-                        Full Name
-                      </Text>
-
-                      <Text color="teal.500">{userData.fullname}</Text>
-                      <Text fontSize="md" fontWeight="bold">
-                        Job
-                      </Text>
-
-                      <Text color="teal.500">{userData.job}</Text>
-                      <Text fontSize="md" fontWeight="bold">
-                        Institution
-                      </Text>
-
-                      <Text color="teal.500">{userData.institution}</Text>
-
-                      <Text fontSize="md" fontWeight="bold">
-                        Email
-                      </Text>
-
-                      <Text color="teal.500">{userData.username}</Text>
-
-                      <Text fontSize="md" fontWeight="bold">
-                        Location
-                      </Text>
-
-                      <Text color="teal.500">{userData.location}</Text>
-                    </Box>
-                  </Stack>
-                </Flex>
-              )}
-              {/* <Heading as="h3" mt="4" color="#005252" fontSize="lg">
-                Most Recent Projects
-              </Heading> */}
-
-              <ChakraProvider>
-                <VStack spacing={4} align="stretch" p={4}>
-                  <Text fontSize="2xl" fontWeight="bold">
-                    Task Manager
-                  </Text>
-                  <Stack direction="row" spacing={4}>
-                    <Input
-                      type="text"
-                      placeholder="Title"
-                      value={titleInput}
-                      onChange={(e) => setTitleInput(e.target.value)}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Description"
-                      value={descriptionInput}
-                      onChange={(e) => setDescriptionInput(e.target.value)}
-                    />
-                    <Select
-                      placeholder="Due Date"
-                      value={dueDateInput}
-                      onChange={(e) => setDueDateInput(e.target.value)}
-                    >
-                      {dueDateOptions.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Select>
-                    <Input
-                      type="text"
-                      placeholder="Priority"
-                      value={taskInput}
-                      onChange={(e) => setTaskInput(e.target.value)}
-                    />
-                    <Button colorScheme="blue" onClick={handleAddTask}>
-                      Add
-                    </Button>
-                  </Stack>
-                  <Box>
-                    {tasks.map((task, index) => (
-                      <Box
-                        key={index}
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        bg={task.completed ? "green.100" : "gray.100"}
-                        p={2}
-                        borderRadius="md"
-                      >
-                        {editIndex === index ? (
-                          // Editing mode
-                          <VStack spacing={1} align="start">
-                            <Editable
-                              defaultValue={task.title}
-                              onSubmit={(value) =>
-                                handleEditTask(index, "title", value)
-                              }
-                            >
-                              <EditablePreview />
-                              <EditableInput />
-                            </Editable>
-                            <Textarea
-                              value={task.description}
-                              onChange={(e) =>
-                                handleEditTask(
-                                  index,
-                                  "description",
-                                  e.target.value
-                                )
-                              }
-                            />
-                            <Select
-                              placeholder="Due Date"
-                              value={task.dueDate}
-                              onChange={(e) =>
-                                handleEditTask(index, "dueDate", e.target.value)
-                              }
-                            >
-                              {dueDateOptions.map((option, i) => (
-                                <option key={i} value={option}>
-                                  {option}
-                                </option>
-                              ))}
-                            </Select>
-                          </VStack>
-                        ) : (
-                          // Display mode
-                          <VStack spacing={1} align="start">
-                            <Text>{task.title}</Text>
-                            <Text>{task.description}</Text>
-                            <InputGroup size="sm">
-                              <InputLeftAddon>Due Date:</InputLeftAddon>
-                              <Text>{task.dueDate}</Text>
-                            </InputGroup>
-                          </VStack>
-                        )}
-                        <Stack direction="row">
-                          {editIndex === index ? (
-                            <Button
-                              colorScheme="blue"
-                              size="sm"
-                              onClick={() => handleSaveEdit(index)}
-                            >
-                              Save
-                            </Button>
-                          ) : (
-                            <Button
-                              colorScheme="gray"
-                              size="sm"
-                              onClick={() => handleEditTask(index)}
-                            >
-                              Edit
-                            </Button>
-                          )}
-                          <Button
-                            colorScheme="red"
-                            size="sm"
-                            onClick={() => handleDeleteTask(index)}
-                          >
-                            Delete
-                          </Button>
-                          <Checkbox
-                            isChecked={task.completed}
-                            onChange={() => handleToggleCompletion(index)}
-                          >
-                            Completed
-                          </Checkbox>
-                        </Stack>
-                      </Box>
-                    ))}
-                  </Box>
-                </VStack>
-              </ChakraProvider>
-
-              <Stack
-                direction="row"
-                flexWrap="wrap"
-                justify="center"
-                mt="4"
-                spacing="4"
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color="teal.600">
+            {editTaskIndex !== null ? "Edit Task" : "Add New Task"}
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl mt={4}>
+              <FormLabel>Username</FormLabel>
+              <Input
+                type="text"
+                name="username"
+                value={newTask.username}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Title</FormLabel>
+              <Input
+                type="text"
+                name="title"
+                value={newTask.title}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Description</FormLabel>
+              <Textarea
+                name="description"
+                value={newTask.description}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Due Date</FormLabel>
+              <Input
+                type="date"
+                name="dueDate"
+                value={newTask.dueDate}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Status</FormLabel>
+              <Select
+                name="status"
+                value={newTask.status}
+                onChange={handleInputChange}
               >
-                {/* {!isDataLoading &&
-                  userProjects.map((project) => (
-                    <Link
-                      key={project._id}
-                      as={RouterLink}
-                      to={"/projects/" + project._id}
-                    >
-                      <ProjectCard
-                        key={project._id}
-                        name={project.projectName}
-                        description={project.projectDescription}
-                      />
-                    </Link>
-                  ))} */}
-              </Stack>
-            </Stack>
-          </Container>
-        </Box>
-        {/* <Footer /> */}
-      </Flex>
-    );
-  } else {
-    // return <Redirect to="/login" />;
-    return redirect("/login");
-  }
-}
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Delayed">Delayed</option>
+              </Select>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+              {editTaskIndex !== null ? "Update" : "Save"}
+            </Button>
+            <Button
+              variant="outline"
+              colorScheme="teal"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
-// Profile.propTypes = {
-//   logoutPressed: PropTypes.func.isRequired,
-// };
+      <Table
+        variant="striped"
+        size="md"
+        borderWidth="1px"
+        borderColor="teal.200"
+        borderRadius="md"
+      >
+        <Thead bg="teal.600">
+          <Tr>
+            <Th color="white">Username</Th>
+            <Th color="white">Title</Th>
+            <Th color="white">Description</Th>
+            <Th color="white">Date Created</Th>
+            <Th color="white">Due Date</Th>
+            <Th color="white">Status</Th>
+            <Th color="white">Actions</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {tasks.map((task, index) => (
+            <Tr key={index} _hover={{ bg: "teal.100" }}>
+              <Td>{task.username}</Td>
+              <Td>{task.title}</Td>
+              <Td>{task.description}</Td>
+              <Td>{task.dateCreated}</Td>
+              <Td>{task.dueDate}</Td>
+              <Td>{task.status}</Td>
+              <Td>
+                <Button
+                  colorScheme="teal"
+                  size="sm"
+                  mr={2}
+                  variant="outline"
+                  onClick={() => handleEdit(index)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  colorScheme="red"
+                  size="sm"
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
+  );
+}
 
 export default Dashboard;
