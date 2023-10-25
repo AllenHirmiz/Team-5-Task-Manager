@@ -43,7 +43,7 @@ body {
   margin-right: auto;
 }
 #navbar {
-  --navbar-height: 64px;
+  --navbar-height: 104px;
   position: fixed;
   height: var(--navbar-height);
   background-color: var(--navbar-bg-color);
@@ -59,7 +59,11 @@ body {
 }
 .navbar-item {
   margin: 0.4em;
-  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  padding: 5px;
 }
 
 .home-link,

@@ -6,7 +6,7 @@ import LoginForm from './LoginForm';
 import Profile from '../pages/ProfilePage';
 import Auth from '../utils/auth';
 import logo from '../assets/images/logo.png';
-//import '../assets/JS/script'
+//import { Navbar, Nav, Container, Modal, Tab } from '../assets/JS/script'
 
 const AppNavbar = () => {
   // set modal display state
@@ -17,8 +17,7 @@ const AppNavbar = () => {
       <header id="navbar">
         <nav className="navbar-container container">
           <a href="/" className="home-link">
-            <div className="navbar-logo"></div>
-            Website Name
+          <img src={logo} alt="Logo" className="logo" />
           </a>
           <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
             <span className="icon-bar"></span>
@@ -29,14 +28,14 @@ const AppNavbar = () => {
             <ul className="navbar-links">
               {Auth.loggedIn() ? (
                 <>
-                <li className="navbar-item"><a className="navbar-link" href="/Dashboard">Dashboard</a></li>
-                <li className="navbar-item"><a className="navbar-link" href="/Profile">Profile</a></li>
-                <li className="navbar-item"><a className="navbar-link" href="/ContactUs">Contact</a></li>
-                <li className="navbar-item"><a className="navbar-link" onClick={Auth.logout}>Logout</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Dashboard">Dashboard</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Profile">Profile</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/ContactUs">Contact</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" onClick={Auth.logout}>Logout</a></li>
                 </>
               ) : (
                 <>
-                <li className="navbar-item"><a className="navbar-link" href="/">Home Page</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/">Home Page</a></li>
                 <li className="navbar-item"><a className="navbar-link" onClick={() => setShowModal(true)}>Login/Sign Up</a></li>
                 </>
               )}
