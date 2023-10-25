@@ -1,5 +1,7 @@
-"use client";
+// "use client";
+// import { FaGlobe, FaGithub, FaTwitter, FaInstagram, FaFacebook } from "react-icons/fa";
 
+import { EmailIcon } from "@chakra-ui/icons";
 import {
   Heading,
   Avatar,
@@ -12,6 +14,10 @@ import {
   Flex,
   Text,
   Stack,
+  // HStack,
+  // VStack,
+  // Icon,
+  // ButtonGroup,
   Grid,
   GridItem,
   Button,
@@ -20,8 +26,8 @@ import {
 
 function ProfilePage() {
   return (
-    <Grid          // Meriam comment: use spanning columns https://chakra-ui.com/docs/components/grid 
-      h="900px"    
+    <Grid // Meriam comment: use spanning columns https://chakra-ui.com/docs/components/grid
+      h="900px"
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(6, 1fr)"
       gap={4}
@@ -86,7 +92,7 @@ function ProfilePage() {
               w={"45%"}
               mt={8}
               mr={2}
-              bg={useColorModeValue("#151f21", "gray.900")}
+              bg={useColorModeValue("#319795", "gray.900")} // for colors refer st https://chakra-ui.com/docs/styled-system/theme
               color={"white"}
               rounded={"md"}
               _hover={{
@@ -99,15 +105,16 @@ function ProfilePage() {
             <Button
               w={"45%"}
               mt={8}
-              bg={useColorModeValue("#151f21", "gray.900")}
+              bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
               color={"white"}
               rounded={"md"}
               _hover={{
                 transform: "translateY(-2px)",
                 boxShadow: "lg",
               }}
+              leftIcon={<EmailIcon />}
             >
-              message
+              Email
             </Button>
           </Box>
         </Box>
@@ -120,9 +127,9 @@ function ProfilePage() {
 
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
-              <Box>           
-                <Heading size="xs" >   
-                 {/* you can add  also add textTransform="uppercase" or lowercase*/}
+              <Box>
+                <Heading size="xs">
+                  {/* you can add  also add textTransform="uppercase" or lowercase*/}
                   Github
                 </Heading>
                 <Text pt="2" fontSize="sm">
@@ -153,44 +160,66 @@ function ProfilePage() {
         {/* large top card goes here */}
         <Card>
           <CardHeader>
-            <Heading size="md">Client Report</Heading>
+            <Heading size="md">Personal Information</Heading>
           </CardHeader>
 
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
                 <Heading size="xs" textTransform="uppercase">
-                  Summary
+                  <p className="name">Full Name</p>
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  View a summary of all your clients over the last month.
+                  John Doe {/* {userData.fullname}  will render the data here*/}
                 </Text>
               </Box>
               <Box>
                 <Heading size="xs" textTransform="uppercase">
-                  Overview
+                  <p className="job">Job Title</p>
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  Check out the overview of your clients.
+                  Full Stack Developer{" "}
+                  {/* {userData.JobTitle}  will render the data here*/}
                 </Text>
               </Box>
               <Box>
                 <Heading size="xs" textTransform="uppercase">
-                  Analysis
+                  Company
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  See a detailed analysis of all your business clients.
+                  Google {/*  {userData.institution} */}
                 </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Address
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  Bay Area, San Francisco, CA {/*  {userData.Address} */}
+                </Text>
+                <Button
+                  w={"20%"}
+                  mt={8}
+                  bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
+                  color={"white"}
+                  rounded={"md"}
+                  _hover={{
+                    transform: "translateY(-2px)",
+                    boxShadow: "lg",
+                  }}
+                >
+                  Edit Profile
+                </Button>
               </Box>
             </Stack>
           </CardBody>
         </Card>
       </GridItem>
-      <GridItem colSpan={2} p={4}>
+      <GridItem colSpan={2} p={1}>
         {/*  small bottom card goes here */}
         <Card>
           <CardHeader>
-            <Heading size="md">Client Report</Heading>
+            <Heading size="md">Most Recent Projects</Heading>
           </CardHeader>
 
           <CardBody>
@@ -224,7 +253,7 @@ function ProfilePage() {
         </Card>
       </GridItem>
 
-      <GridItem colSpan={2} p={4}>
+      <GridItem colSpan={2} p={1}>
         {/* small bottom card goes here */}
         <Card>
           <CardHeader>
