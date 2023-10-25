@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import Profile from '../pages/ProfilePage';
 import Auth from '../utils/auth';
 import logo from '../assets/images/logo.png';
+//import '../assets/JS/script'
 
 const AppNavbar = () => {
   // set modal display state
@@ -13,39 +14,36 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            <img src={logo} alt="Logo" width={180} height={180} />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
-            <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/'>
-                Home Page
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
+      <header id="navbar">
+        <nav className="navbar-container container">
+          <a href="/" className="home-link">
+            <div className="navbar-logo"></div>
+            Website Name
+          </a>
+          <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <div id="navbar-menu" aria-labelledby="navbar-toggle">
+            <ul className="navbar-links">
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/Profile'>
-                    My Profile
-                  </Nav.Link>
-                  <Nav.Link as={Link} to='/Dashboard'>
-                    Dashboard
-                  </Nav.Link>
-                  <Nav.Link as={Link} to='/Contact'>
-                    Contact Us
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                <li className="navbar-item"><a className="navbar-link" href="/Dashboard">Dashboard</a></li>
+                <li className="navbar-item"><a className="navbar-link" href="/Profile">Profile</a></li>
+                <li className="navbar-item"><a className="navbar-link" href="/ContactUs">Contact</a></li>
+                <li className="navbar-item"><a className="navbar-link" onClick={Auth.logout}>Logout</a></li>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <>
+                <li className="navbar-item"><a className="navbar-link" href="/">Home Page</a></li>
+                <li className="navbar-item"><a className="navbar-link" onClick={() => setShowModal(true)}>Login/Sign Up</a></li>
+                </>
               )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      {/* set modal data up */}
+            </ul>
+          </div>
+        </nav>
+        {/* set modal data up */}
       <Modal
         size='lg'
         show={showModal}
@@ -77,6 +75,7 @@ const AppNavbar = () => {
           </Modal.Body>
         </Tab.Container>
       </Modal>
+      </header>
     </>
   );
 };
