@@ -10,7 +10,15 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    todo: async (parent, args, context) => {
+      const todoData = await Todo.find();
+      console.log(todoData);
+      return todoData;
+    },
+    // Find by ID????
   },
+
+  // Add query todo, find all
 
   Mutation: {
     //create a new user and sign a token for that user
@@ -54,6 +62,34 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    //if user is logged in, save a Todo to user's Todo
+    saveTodo: async (parent, { savedData }, context) => {
+      console.log("hitting saveTodo");
+      if (context.user) {
+        const update = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedTodos: savedData } },
+          { new: true }
+        );
+
+        return update;
+      }
+      throw AuthenticationError;
+      ("You need to be logged in!");
+    },
+    //remove a Todo from savedTodos
+    removeTodo: async (parent, { TodoId }, context) => {
+      if (context.user) {
+        const removeTodo = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedTodos: { TodoId } } },
+          { new: true }
+        );
+
+        return removeTodo;
+      }
+      throw AuthenticationError;
     },
   },
 };

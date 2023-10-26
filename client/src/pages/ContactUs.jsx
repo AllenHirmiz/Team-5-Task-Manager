@@ -3,10 +3,10 @@ import { Navigate, useParams } from 'react-router-dom';
 import 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries'
-import { getMe, deleteBook } from '../utils/API';
+import { getMe, deleteTodo } from '../utils/API';
 import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
-import { REMOVE_BOOK } from '../utils/mutations';
+import { removeTodoId } from '../utils/localStorage';
+import { REMOVE_TODO } from '../utils/mutations';
 import {
   Box,
   Button,

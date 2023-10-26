@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const todoSchema = require("./Todo");
 
 const userSchema = new Schema(
   {
@@ -23,6 +24,7 @@ const userSchema = new Schema(
       required: true,
       unique: false,
     },
+    savedTodos: [todoSchema],
   },
   // set this to use virtual below
   {
@@ -46,6 +48,11 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+// when we query a user, we'll also get another field called `TodoCount` with the number of saved todos we have
+userSchema.virtual("todoCount").get(function () {
+  return this.savedTodos.length;
+});
 
 const User = model("User", userSchema);
 

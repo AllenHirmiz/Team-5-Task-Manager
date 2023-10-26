@@ -28,30 +28,24 @@ export const loginUser = (userData) => {
   });
 };
 
-// save book data for a logged in user
-export const saveBook = (bookData, token) => {
+// save todo data for a logged in user
+export const saveTodo = (todoData, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(bookData),
+    body: JSON.stringify(todoData),
   });
 };
 
-// remove saved book data for a logged in user
-export const deleteBook = (bookId, token) => {
-  return fetch(`/api/users/books/${bookId}`, {
+// remove saved todo data for a logged in user
+export const deleteTodo = (todoId, token) => {
+  return fetch(`/api/users/todos/${todoId}`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
     },
   });
-};
-
-// make a search to google books api
-// https://www.googleapis.com/books/v1/volumes?q=harry+potter
-export const searchGoogleBooks = (query) => {
-  return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
 };
