@@ -73,8 +73,8 @@ function Dashboard() {
     username: "",
     title: "",
     description: "",
-    dateCreated: new Date().toLocaleDateString(),
-    dueDate: "",
+    datecreated: new Date().toLocaleDateString(),
+    duedate: "",
     status: "Pending",
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +89,8 @@ function Dashboard() {
     },
   });
   console.log(data); // Check on the data
+  const tasks = data?.todo || [];
+  console.log(tasks);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -116,12 +118,14 @@ function Dashboard() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const tasks = data.todos;
+  // const tasks = data.todos;
 
-  // const handleDelete = (index) => {
-  //   const updatedTasks = tasks.filter((_, i) => i !== index);
-  //   setTasks(updatedTasks);
-  // };
+  const handleDelete = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  function setTasks() {}
 
   const handleEdit = (index) => {
     setEditTaskIndex(index);
@@ -129,8 +133,29 @@ function Dashboard() {
     setIsOpen(true);
   };
 
+  function parseDate(dateString) {
+    const [day, month, year] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  // function isValidDate(d) {
+  //   return d instanceof Date && !isNaN(d);
+  // }
+
+  // const dateCreated = new Date(task.datecreated);
+  // <Td>
+  //   {isValidDate(dateCreated)
+  //     ? dateCreated.toLocaleDateString()
+  //     : "Invalid Date"}
+  // </Td>;
+
+  // const dueDate = new Date(task.duedate);
+  // <Td>
+  //   {isValidDate(dueDate) ? dueDate.toLocaleDateString() : "Invalid Date"}
+  // </Td>;
+
   return (
-    <Box p={4} bg="teal.50" borderRadius="md">
+    <Box p={10} bg="teal.50" borderRadius="md">
       {newTask.username && (
         <Text fontSize="2xl" fontWeight="bold" color="teal.800" mb={4}>
           Task Manager for {newTask.username}
@@ -235,8 +260,9 @@ function Dashboard() {
               <Td>{task.username}</Td>
               <Td>{task.title}</Td>
               <Td>{task.description}</Td>
-              <Td>{task.dateCreated}</Td>
-              <Td>{task.dueDate}</Td>
+              <Td>{new Date(Number(task.datecreated)).toLocaleDateString()}</Td>
+              <Td>{new Date(Number(task.duedate)).toLocaleDateString()}</Td>
+
               <Td>{task.status}</Td>
               <Td>
                 <Button
@@ -251,7 +277,7 @@ function Dashboard() {
                 <Button
                   colorScheme="red"
                   size="sm"
-                  // onClick={() => handleDelete(index)}
+                  onClick={() => handleDelete(index)}
                 >
                   Delete
                 </Button>
