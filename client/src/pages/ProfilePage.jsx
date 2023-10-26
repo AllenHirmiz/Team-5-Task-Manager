@@ -1,6 +1,6 @@
 // "use client";
 // import { FaGlobe, FaGithub, FaTwitter, FaInstagram, FaFacebook } from "react-icons/fa";
-
+import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
 import { EmailIcon } from "@chakra-ui/icons";
 import {
   Heading,
@@ -18,6 +18,8 @@ import {
   // VStack,
   // Icon,
   // ButtonGroup,
+  // InputGroup,
+  IconButton,
   Grid,
   GridItem,
   Button,
@@ -127,30 +129,65 @@ function ProfilePage() {
 
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
-              <Box>
+              <Box
+                as="a"
+                href="https://github.com/AllenHirmiz/Team-5-Task-Manager"
+              >
                 <Heading size="xs">
                   {/* you can add  also add textTransform="uppercase" or lowercase*/}
-                  Github
+                  TaskPro Github
+                  <IconButton
+                    aria-label="github"
+                    variant="ghost"
+                    size="lg"
+                    fontSize="3xl"
+                    icon={<BsGithub />}
+                    _hover={{
+                      bg: "blue.500",
+                      color: useColorModeValue("white", "gray.700"),
+                    }}
+                    isRound
+                  />
                 </Heading>
-                <Text pt="2" fontSize="sm">
-                  View a summary of all your clients over the last month.
-                </Text>
+                <Text pt="2" fontSize="sm"></Text>
               </Box>
-              <Box>
-                <Heading size="xs" textTransform="uppercase">
-                  Overview
+              <Box as="a" href="#">
+                <Heading size="xs">
+                  Twitter
+                  <IconButton
+                    aria-label="twitter"
+                    variant="ghost"
+                    size="lg"
+                    icon={<BsTwitter size="28px" />}
+                    _hover={{
+                      bg: "blue.500",
+                      color: useColorModeValue("white", "gray.700"),
+                    }}
+                    isRound
+                  />
                 </Heading>
-                <Text pt="2" fontSize="sm">
+                {/* <Text pt="2" fontSize="sm">
                   Check out the overview of your clients.
-                </Text>
+                </Text> */}
               </Box>
-              <Box>
-                <Heading size="xs" textTransform="uppercase">
-                  Analysis
+              <Box as="a" href="#">
+                <Heading size="xs">
+                  Linkedin
+                  <IconButton
+                    aria-label="linkedin"
+                    variant="ghost"
+                    size="lg"
+                    icon={<BsLinkedin size="28px" />}
+                    _hover={{
+                      bg: "blue.500",
+                      color: useColorModeValue("white", "gray.700"),
+                    }}
+                    isRound
+                  />
                 </Heading>
-                <Text pt="2" fontSize="sm">
+                {/* <Text pt="2" fontSize="sm">
                   See a detailed analysis of all your business clients.
-                </Text>
+                </Text> */}
               </Box>
             </Stack>
           </CardBody>
