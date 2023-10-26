@@ -42,7 +42,7 @@ type User {
     addUser(username: String!, email: String!, password: String!, name: String): Auth
     login(email: String!, password: String!): Auth
     addTodo(username: String!,title:String!, description: String!, datecreated: String, duedate: String, status: String): Todo
-    removeTodo(TodoId: ID!): User
+    removeTodo(todoId: ID!): Todo
     saveTodo(savedData: SavedTodoInput!): User
   }
 `;

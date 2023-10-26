@@ -79,18 +79,23 @@ const resolvers = {
       throw AuthenticationError;
       ("You need to be logged in!");
     },
-    //remove a Todo from savedTodos
-    removeTodo: async (parent, { TodoId }, context) => {
-      if (context.user) {
-        const removeTodo = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedTodos: { TodoId } } },
-          { new: true }
-        );
 
-        return removeTodo;
-      }
-      throw AuthenticationError;
+    //remove a Todo from savedTodos
+    removeTodo: async (parent, { todoId }, context) => {
+      // if (context.user) {
+      // const removeTodo = await User.findOneAndUpdate(
+      //   { _id: context.user._id },
+      //   { $pull: { savedTodos: { todoId } } },
+      //   { new: true }
+      // );
+
+      // return removeTodo;
+      const removeItem = await Todo.findOneAndRemove({
+        _id: todoId,
+      });
+      return removeItem;
+      // }
+      // throw AuthenticationError;
     },
   },
 };
