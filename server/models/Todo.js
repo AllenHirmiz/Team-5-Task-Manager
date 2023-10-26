@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const todoSchema = new Schema({
   username: {
@@ -26,6 +26,4 @@ const todoSchema = new Schema({
   },
 });
 
-const Todo = model("Todo", todoSchema);
-
-module.exports = Todo;
+module.exports = todoSchema;
