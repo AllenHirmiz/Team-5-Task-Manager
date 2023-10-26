@@ -11,9 +11,10 @@ const resolvers = {
       throw AuthenticationError;
     },
     todo: async (parent, args, context) => {
-      const todoData = await Todo.find();
-      console.log(todoData);
-      return todoData;
+      // const todoData = await Todo.find({});
+      // console.log(todoData);
+      // return todoData;
+      return await Todo.find({});
     },
     // Find by ID????
   },
