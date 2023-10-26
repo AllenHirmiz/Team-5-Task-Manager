@@ -27,7 +27,7 @@ import { gql } from "@apollo/client";
 
 const GET_TODOS = gql`
   query GetTodosQuery {
-    todos {
+    todo {
       _id
       username
       title
@@ -118,10 +118,10 @@ function Dashboard() {
 
   const tasks = data.todos;
 
-  const handleDelete = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
-  };
+  // const handleDelete = (index) => {
+  //   const updatedTasks = tasks.filter((_, i) => i !== index);
+  //   setTasks(updatedTasks);
+  // };
 
   const handleEdit = (index) => {
     setEditTaskIndex(index);
@@ -230,7 +230,7 @@ function Dashboard() {
           </Tr>
         </Thead>
         <Tbody>
-          {tasks.map((task, index) => (
+          {tasks?.map((task, index) => (
             <Tr key={index} _hover={{ bg: "teal.100" }}>
               <Td>{task.username}</Td>
               <Td>{task.title}</Td>
@@ -251,7 +251,7 @@ function Dashboard() {
                 <Button
                   colorScheme="red"
                   size="sm"
-                  onClick={() => handleDelete(index)}
+                  // onClick={() => handleDelete(index)}
                 >
                   Delete
                 </Button>

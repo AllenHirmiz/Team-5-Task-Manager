@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const todoSchema = require("./Todo");
 
 const userSchema = new Schema(
   {
@@ -24,7 +23,12 @@ const userSchema = new Schema(
       required: true,
       unique: false,
     },
-    savedTodos: [todoSchema],
+    savedTodos: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Todo",
+      },
+    ],
   },
   // set this to use virtual below
   {
