@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import Profile from '../pages/ProfilePage';
 import Auth from '../utils/auth';
 import logo from '../assets/images/logo.png';
-//import { Navbar, Nav, Container, Modal, Tab } from '../assets/JS/script'
+//import navbar from '../assets/JS/Navbar.js'
 
 const AppNavbar = () => {
   // set modal display state
@@ -30,12 +30,13 @@ const AppNavbar = () => {
                 <>
                 <li className="navbar-item"><a className="navbar-link nav-link" href="/Dashboard">Dashboard</a></li>
                 <li className="navbar-item"><a className="navbar-link nav-link" href="/Profile">Profile</a></li>
-                <li className="navbar-item"><a className="navbar-link nav-link" href="/ContactUs">Contact</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Contact">Contact Us</a></li>
                 <li className="navbar-item"><a className="navbar-link nav-link" onClick={Auth.logout}>Logout</a></li>
                 </>
               ) : (
                 <>
-                <li className="navbar-item"><a className="navbar-link nav-link" href="/">Home Page</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/">About TaskPro</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Contact">Contact Us</a></li>
                 <li className="navbar-item"><a className="navbar-link" onClick={() => setShowModal(true)}>Login/Sign Up</a></li>
                 </>
               )}
