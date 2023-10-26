@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 const LandingPage = () => {
+  
   return (
     <>
       <Container maxW={'3xl'}>
