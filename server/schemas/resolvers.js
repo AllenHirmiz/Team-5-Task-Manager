@@ -10,7 +10,15 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    todo: async (parent, args, context) => {
+      const todoData = await Todo.find();
+      console.log(todoData);
+      return todoData;
+    },
+    // Find by ID????
   },
+
+  // Add query todo, find all
 
   Mutation: {
     //create a new user and sign a token for that user

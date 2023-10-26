@@ -23,6 +23,12 @@ const userSchema = new Schema(
       required: true,
       unique: false,
     },
+    todoList: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Todo",
+      },
+    ],
   },
   // set this to use virtual below
   {

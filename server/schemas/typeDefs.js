@@ -17,8 +17,6 @@ type User {
     name: String
   }
 
-  
-
   type Auth {
     token: ID!
     user: User
@@ -26,13 +24,7 @@ type User {
 
   type Query {
     me: User
-  }
-
-  type Query {
-    todo: Todo
-  }
-
-  type Query {
+    todo: [Todo]
     comment: User
   }
 
