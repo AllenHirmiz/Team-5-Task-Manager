@@ -67,6 +67,14 @@ const ADD_TODO = gql`
   }
 `;
 
+const REMOVE_TODO = gql`
+  mutation RemoveTodo($todoId: ID!) {
+    removeTodo(todoId: $todoId) {
+      _id
+    }
+  }
+`;
+
 const EDIT_TODO = gql`
   mutation EditTodoMutation(
     $id: ID!
@@ -132,6 +140,26 @@ function Dashboard() {
       console.error("Error editing task:", err);
     },
   });
+
+  const [removeTodo] = useMutation(REMOVE_TODO);
+
+  const handleDelete = async (index) => {
+    const todoId = data.todo[index]._id;
+    try {
+      await removeTodo({
+        variables: { todoId },
+        update: (cache) => {
+          const existingTodos = cache.readQuery({ query: GET_TODOS });
+          const newTodos = existingTodos.todo.filter(
+            (todo) => todo._id !== todoId
+          );
+          cache.writeQuery({ query: GET_TODOS, data: { todo: newTodos } });
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -280,6 +308,7 @@ function Dashboard() {
                 value={newTask.status}
                 onChange={handleInputChange}
               >
+                <option value="In Progress">In Progress</option>
                 <option value="Pending">Pending</option>
                 <option value="Completed">Completed</option>
                 <option value="Delayed">Delayed</option>
