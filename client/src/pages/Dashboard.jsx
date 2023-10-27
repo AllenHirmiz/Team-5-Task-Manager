@@ -253,9 +253,14 @@ function Dashboard() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Box p={10} bg="teal.50" borderRadius="md">
+    <Box p={{ base: 4, md: 10 }} bg="teal.50" borderRadius="md">
       {newTask.username && (
-        <Text fontSize="2xl" fontWeight="bold" color="teal.800" mb={4}>
+        <Text
+          fontSize={{ base: "xl", md: "2xl" }}
+          fontWeight="bold"
+          color="teal.800"
+          mb={4}
+        >
           Task Manager for {newTask.username}
         </Text>
       )}
@@ -341,8 +346,12 @@ function Dashboard() {
         borderWidth="1px"
         borderColor="teal.200"
         borderRadius="md"
+        display={{ base: "block", md: "table" }}
       >
-        <Thead bg="teal.600">
+        <Thead
+          bg="teal.600"
+          display={{ base: "none", md: "table-header-group" }}
+        >
           <Tr>
             <Th color="white">Username</Th>
             <Th color="white">Title</Th>
@@ -356,30 +365,70 @@ function Dashboard() {
         <Tbody>
           {data.todo.map((task, index) => (
             <Tr key={index} _hover={{ bg: "teal.100" }}>
-              <Td>{task.username}</Td>
-              <Td>{task.title}</Td>
-              <Td>{task.description}</Td>
-              <Td>{formatDate(task.datecreated)}</Td>
-              <Td>{task.duedate ? formatDate(task.duedate) : "Not set"}</Td>
-              <Td>{task.status}</Td>
-              <Td>
-                <Button
-                  colorScheme="teal"
-                  size="sm"
-                  mr={2}
-                  variant="outline"
-                  onClick={() => handleEditOpen(index)}
-                >
-                  Edit
-                </Button>
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Username:{" "}
+                </Text>
+                {task.username}
+              </Td>
 
-                <Button
-                  colorScheme="red"
-                  size="sm"
-                  onClick={() => handleDelete(index)}
-                >
-                  Delete
-                </Button>
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Title:{" "}
+                </Text>
+                {task.title}
+              </Td>
+
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Description:{" "}
+                </Text>
+                {task.description}
+              </Td>
+
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Date Created:{" "}
+                </Text>
+                {formatDate(task.datecreated)}
+              </Td>
+
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Due Date:{" "}
+                </Text>
+                {task.duedate ? formatDate(task.duedate) : "Not set"}
+              </Td>
+
+              <Td display={{ base: "flex", md: "table-cell" }}>
+                <Text display={{ base: "block", md: "none" }} fontWeight="bold">
+                  Status:{" "}
+                </Text>
+                {task.status}
+              </Td>
+              <Td>
+                <Box display={{ base: "block", md: "flex" }} width="full">
+                  <Button
+                    colorScheme="teal"
+                    size="sm"
+                    mb={{ base: 2, md: 0 }}
+                    mr={{ base: 0, md: 2 }}
+                    width={{ base: "full", md: "auto" }}
+                    variant="outline"
+                    onClick={() => handleEditOpen(index)}
+                  >
+                    Edit
+                  </Button>
+
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    width={{ base: "full", md: "auto" }}
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </Button>
+                </Box>
               </Td>
             </Tr>
           ))}
