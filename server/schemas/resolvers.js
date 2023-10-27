@@ -11,15 +11,9 @@ const resolvers = {
       throw AuthenticationError;
     },
     todo: async (parent, args, context) => {
-      // const todoData = await Todo.find({});
-      // console.log(todoData);
-      // return todoData;
       return await Todo.find({});
     },
-    // Find by ID????
   },
-
-  // Add query todo, find all
 
   Mutation: {
     //create a new user and sign a token for that user
@@ -34,7 +28,6 @@ const resolvers = {
       { username, title, description, datecreated, duedate, status },
       context
     ) => {
-      //console.log(context);
       const todo = await Todo.create({
         username,
         title,
@@ -43,59 +36,44 @@ const resolvers = {
         duedate,
         status,
       });
-      console.log(todo);
       return todo;
     },
     //log in the user with the appropriate credentials, sign a token
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw AuthenticationError;
       }
-
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw AuthenticationError;
       }
-
       const token = signToken(user);
-
       return { token, user };
     },
     //if user is logged in, save a Todo to user's Todo
     saveTodo: async (parent, { savedData }, context) => {
-      console.log("hitting saveTodo");
       if (context.user) {
         const update = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { savedTodos: savedData } },
           { new: true }
         );
-
         return update;
       }
       throw AuthenticationError;
-      ("You need to be logged in!");
     },
-
     //remove a Todo from savedTodos
     removeTodo: async (parent, { todoId }, context) => {
-      // if (context.user) {
-      // const removeTodo = await User.findOneAndUpdate(
-      //   { _id: context.user._id },
-      //   { $pull: { savedTodos: { todoId } } },
-      //   { new: true }
-      // );
-
-      // return removeTodo;
       const removeItem = await Todo.findOneAndRemove({
         _id: todoId,
       });
       return removeItem;
-      // }
-      // throw AuthenticationError;
+    },
+    //edit a Todo based on its ID
+    editTodo: async (parent, args, context) => {
+      const { _id, ...taskFields } = args;
+      return await Todo.findOneAndUpdate({ _id }, taskFields, { new: true });
     },
   },
 };
