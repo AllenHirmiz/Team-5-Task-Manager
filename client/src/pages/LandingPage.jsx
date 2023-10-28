@@ -1,5 +1,8 @@
 
 import '../assets/Css/LandingPage.css';
+import { useState } from 'react';
+import SignUpForm from '../components/SignupForm';
+import LoginForm from '../components/LoginForm';
 import {
   Box,
   Heading,
@@ -10,10 +13,38 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  Flex,
+  Spacer,
+  ChakraProvider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  OrderedList,
+  ListItem,
 } from '@chakra-ui/react';
 
 const LandingPage = () => {
-  
+  const [showloginModal, setShowloginModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  const openloginModal = () => {
+    setShowloginModal(true);
+  };
+  const openSignUpModal = () => {
+    setShowSignUpModal(true);
+  };
+
+  const closeloginModal = () => {
+    setShowloginModal(false);
+  };
+  const closeSignUpModal = () => {
+    setShowSignUpModal(false);
+  };
+
   return (
     <>
       <Container maxW={'3xl'}>
@@ -26,57 +57,92 @@ const LandingPage = () => {
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-            Make money from <br />
-            <Text as={'span'} color={'green.400'}>
-              your audience
+            TaskPro <br />
+            <Text as={'span'} color={'#319795'}>
+              Manage your daily tasks
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
-            Monetize your content by charging your most loyal readers and reward them
-            loyalty points. Give back to your loyal readers by granting them access to
-            your pre-releases and sneak-peaks.
+          <Text fontWeight="bold">
+          TaskPro is the ultimate solution to help you stay organized, productive, and in control of your busy life.
+          With its intuitive design and powerful features, TaskPro simplifies task management and enhances your productivity like never before.
           </Text>
-          <Stack
+          <OrderedList textAlign={[ 'left']}>
+            <ListItem >Intuitive Task Creation: Easily create tasks with just a few taps. Set due dates, priorities, and reminders to stay on top of your commitments.</ListItem>
+            <ListItem>Progress Tracking: Monitor your task completion progress with insightful visualizations. Analyze your productivity trends and make data-driven decisions.</ListItem>
+            <ListItem>Accessible Across Devices: Access your tasks from anywhere, at any time. TaskPro is a web app that is accessible across all your devices, ensuring you’re always up-to-date.</ListItem>
+          </OrderedList>
+          <Box
             direction={'column'}
             spacing={3}
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              colorScheme={'green'}
-              bg={'green.400'}
+              m={2}
+              colorScheme={'#319795'}
+              bg={'#319795'}
               rounded={'full'}
               px={6}
               _hover={{
-                bg: 'green.500',
-              }}>
-              Get Started
+                bg: '#319795',
+              }}
+              onClick={openloginModal}>
+              Login
             </Button>
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Learn more
+            
+            <Button
+              m={2}
+              colorScheme={'#319795'}
+              bg={'#319795'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: '#319795',
+              }}
+              onClick={openSignUpModal}>
+              Sign Up
             </Button>
-            <Box>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
-                w={71}
-                position={'absolute'}
-                right={-71}
-                top={'10px'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                Starting at $15/mo
-              </Text>
-            </Box>
-          </Stack>
+          </Box>
         </Stack>
       </Container>
+      {/* Modal */}
+      <Modal isOpen={showloginModal} onClose={closeloginModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {/* Add the login here  */}
+            {/*  input fields and buttons */}
+            <LoginForm />
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="outline" mr={3} onClick={closeloginModal}>
+              Close
+            </Button>
+            {/* Add a submit button or other actions here */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* Sign Up Modal */}
+      <Modal isOpen={showSignUpModal} onClose={closeSignUpModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Sign Up</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {/* Add the SignUp  forms or content here */}
+            {/* include input fields and buttons */}
+            <SignUpForm />
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="outline" mr={3} onClick={closeSignUpModal}>
+              Close
+            </Button>
+            {/* Add a submit button or other actions here */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
