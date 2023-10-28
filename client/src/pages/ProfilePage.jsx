@@ -1,6 +1,7 @@
 // "use client";
 // import { FaGlobe, FaGithub, FaTwitter, FaInstagram, FaFacebook } from "react-icons/fa";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
+import React, { useState, useEffect } from "react";
 import { EmailIcon } from "@chakra-ui/icons";
 import {
   Heading,
@@ -24,9 +25,55 @@ import {
   GridItem,
   Button,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  FormControl,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 
 function ProfilePage() {
+  const [profileData, setProfileData] = useState({
+    fullName: "John Doe",
+    jobTitle: "Full Stack Developer",
+    company: "Google",
+    address: "Bay Area, San Francisco, CA",
+  });
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("profileData");
+    if (savedData) {
+      setProfileData(JSON.parse(savedData));
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const saveProfileData = () => {
+    localStorage.setItem("profileData", JSON.stringify(profileData));
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem("profileData", JSON.stringify(profileData));
+    closeModal();
+  };
+
   return (
     <Grid // Meriam comment: use spanning columns https://chakra-ui.com/docs/components/grid
       h="900px"
@@ -198,25 +245,27 @@ function ProfilePage() {
         <Card>
           <CardHeader>
             <Heading size="md">Personal Information</Heading>
+            <Button onClick={openModal} position="absolute" right="0">
+              Edit Profile
+            </Button>
           </CardHeader>
 
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
                 <Heading size="xs" textTransform="uppercase">
-                  <p className="name">Full Name</p>
+                  Full Name
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  John Doe {/* {userData.fullname}  will render the data here*/}
+                  {profileData.fullName}
                 </Text>
               </Box>
               <Box>
                 <Heading size="xs" textTransform="uppercase">
-                  <p className="job">Job Title</p>
+                  Job Title
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  Full Stack Developer{" "}
-                  {/* {userData.JobTitle}  will render the data here*/}
+                  {profileData.jobTitle}
                 </Text>
               </Box>
               <Box>
@@ -224,7 +273,7 @@ function ProfilePage() {
                   Company
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  Google {/*  {userData.institution} */}
+                  {profileData.company}
                 </Text>
               </Box>
               <Box>
@@ -232,24 +281,66 @@ function ProfilePage() {
                   Address
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  Bay Area, San Francisco, CA {/*  {userData.Address} */}
+                  {profileData.address}
                 </Text>
-                <Button
-                  w={"20%"}
-                  mt={8}
-                  bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
-                  color={"white"}
-                  rounded={"md"}
-                  _hover={{
-                    transform: "translateY(-2px)",
-                    boxShadow: "lg",
-                  }}
-                >
-                  Edit Profile
-                </Button>
               </Box>
             </Stack>
           </CardBody>
+
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Edit Profile</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl>
+                  <FormLabel>Full Name</FormLabel>
+                  <Input
+                    type="text"
+                    name="fullName"
+                    value={profileData.fullName}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Job Title</FormLabel>
+                  <Input
+                    type="text"
+                    name="jobTitle"
+                    value={profileData.jobTitle}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Company</FormLabel>
+                  <Input
+                    type="text"
+                    name="company"
+                    value={profileData.company}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Address</FormLabel>
+                  <Input
+                    type="text"
+                    name="address"
+                    value={profileData.address}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={saveToLocalStorage}>
+                  Save
+                </Button>
+                <Button variant="ghost" onClick={closeModal}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </Card>
       </GridItem>
       <GridItem colSpan={2} p={1}>
