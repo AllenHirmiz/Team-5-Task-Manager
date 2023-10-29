@@ -15,7 +15,17 @@ type User {
   email: String!
   password: String!
   name: String
+  job: String
+  company: String
+  address: Address
   savedTodos: [Todo]
+}
+
+type Address {
+  street: String
+  city: String
+  state: String
+  zipcode: Int
 }
 
 input SavedTodoInput {

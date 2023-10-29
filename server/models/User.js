@@ -23,6 +23,23 @@ const userSchema = new Schema(
       required: true,
       unique: false,
     },
+    job: {
+      type: String,
+      required: false,
+
+    },
+    company: {
+      type: String,
+      required: false,
+
+    },
+    address: {
+      street: {type:String},
+      city: {type:String},
+      state: {type:String},
+      zipcode: {type:Number},
+
+    },
     savedTodos: [
       {
         type: Schema.Types.ObjectId,
