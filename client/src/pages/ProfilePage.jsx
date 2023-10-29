@@ -162,6 +162,8 @@ function ProfilePage() {
                 boxShadow: "lg",
               }}
               leftIcon={<EmailIcon />}
+              as="a"
+              onClick=""href="mailto:meriam.sadio8@gmail.com"
             >
               Email
             </Button>
@@ -332,7 +334,7 @@ function ProfilePage() {
               </ModalBody>
 
               <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={saveToLocalStorage}>
+                <Button colorScheme="teal" mr={3} onClick={saveToLocalStorage}>
                   Save
                 </Button>
                 <Button variant="ghost" onClick={closeModal}>
