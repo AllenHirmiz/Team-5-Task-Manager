@@ -10,20 +10,20 @@ import logo from '../assets/images/logo.png';
 function AppNavbar() {
   const [showModal, setShowModal] = useState(false);
   return (
-    <Navbar id="navbar" expand="lg">
+    <Navbar id="navbar" expand="lg" className="navbar navbar-dark bg-dark">
       <Container className="navbar-container container">
       <a href="/" className="home-link">
           <img src={logo} alt="Logo" className="logo" />
           </a>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="navbar-left">
-          <Nav className="me-auto navbar-left">
+          <Nav className="me-auto navbar-left navbar navbar-dark bg-dark">
             {Auth.loggedIn() ? (
                 <>
                 <Nav.Link className="navbar-link nav-link" href="/Dashboard">Dashboard</Nav.Link>
                 <Nav.Link className="navbar-link nav-link" href="/Profile">Profile</Nav.Link>
                 <Nav.Link className="navbar-link nav-link" href="/Contact">Contact</Nav.Link>
-                <Nav.Link className="navbar-link nav-link" onClick={Auth.logout}>Logout</Nav.Link>
+                <Nav.Link className="navbar-link nav-link modal-header" onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
                 <>
@@ -46,10 +46,10 @@ function AppNavbar() {
             <Modal.Title id='signup-modal'>
               <Nav variant='pills'>
                 <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                  <Nav.Link className="btn" eventKey='login'>Login</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                  <Nav.Link className="btn" eventKey='signup'>Sign Up</Nav.Link>
                 </Nav.Item>
               </Nav>
             </Modal.Title>
