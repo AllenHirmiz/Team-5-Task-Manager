@@ -1,124 +1,83 @@
-
-// our New code using chakra ui
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
-import Auth from '../utils/auth';
-import logo from '../assets/images/logo5.png';
 import Profile from '../pages/ProfilePage';
-import {
-  Box,
-  Flex,
-  Spacer,
-  Button,
-  ChakraProvider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-} from "@chakra-ui/react";
+import Auth from '../utils/auth';
+import logo from '../assets/images/logo.png';
+//import navbar from '../assets/JS/Navbar.js'
 
-const AppNavBar = () => {
-  const [showloginModal, setShowloginModal] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-
-  const openloginModal = () => {
-    setShowloginModal(true);
-  };
-  const openSignUpModal = () => {
-    setShowSignUpModal(true);
-  };
-
-  const closeloginModal = () => {
-    setShowloginModal(false);
-  };
-  const closeSignUpModal = () => {
-    setShowSignUpModal(false);
-  };
+const AppNavbar = () => {
+  // set modal display state
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <ChakraProvider>
-      <Box as="nav" bg="#eeeeee" py={4} px={4}> 
-        <Flex align="center">
-          <Box>
-            <img src={logo} alt="Logo" width={180} height={180} />
-          </Box>
-          <Spacer />
-          <Box>
-            <Button
-              bg="#00adb5"
-              color="#ffffff"
-              _hover={{ bg: "#00dee8" }}
-              mr={2}
-              shref={Profile}
-            >
-              Profile
-            </Button>
-            <Button
-              bg="#00adb5"
-              color="#ffffff"
-              _hover={{ bg: "#00dee8" }}
-              mr={2}
-              onClick={openloginModal}
-            >
-              Login
-            </Button>
-            <Button
-              bg="#00adb5"
-              color="#ffffff"
-              _hover={{ bg: "#00dee8" }}
-              onClick={openSignUpModal}
-            >
-              Sign Up
-            </Button>
-          </Box>
-        </Flex>
-      </Box>
-
-      {/* Modal */}
-      <Modal isOpen={showloginModal} onClose={closeloginModal}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Login </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {/* Add the login here  */}
-            {/*  input fields and buttons */}
-            <LoginForm />
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="outline" mr={3} onClick={closeloginModal}>
-              Close
-            </Button>
-            {/* Add a submit button or other actions here */}
-          </ModalFooter>
-        </ModalContent>
+    <>
+      <header id="navbar">
+        <nav className="navbar-container container">
+          <a href="/" className="home-link">
+          <img src={logo} alt="Logo" className="logo" />
+          </a>
+          <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <div id="navbar-menu" aria-labelledby="navbar-toggle">
+            <ul className="navbar-links">
+              {Auth.loggedIn() ? (
+                <>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Dashboard">Dashboard</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Profile">Profile</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Contact">Contact Us</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" onClick={Auth.logout}>Logout</a></li>
+                </>
+              ) : (
+                <>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/">About TaskPro</a></li>
+                <li className="navbar-item"><a className="navbar-link nav-link" href="/Contact">Contact Us</a></li>
+                <li className="navbar-item"><a className="navbar-link" onClick={() => setShowModal(true)}>Login/Sign Up</a></li>
+                </>
+              )}
+            </ul>
+          </div>
+        </nav>
+        {/* set modal data up */}
+      <Modal
+        size='lg'
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        aria-labelledby='signup-modal'>
+        {/* tab container to do either signup or login component */}
+        <Tab.Container defaultActiveKey='login'>
+          <Modal.Header closeButton>
+            <Modal.Title id='signup-modal'>
+              <Nav variant='pills'>
+                <Nav.Item>
+                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tab.Content>
+              <Tab.Pane eventKey='login'>
+                <LoginForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+              <Tab.Pane eventKey='signup'>
+                <SignUpForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+            </Tab.Content>
+          </Modal.Body>
+        </Tab.Container>
       </Modal>
-      {/* Sign Up Modal */}
-      <Modal isOpen={showSignUpModal} onClose={closeSignUpModal}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Sign Up</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {/* Add the SignUp  forms or content here */}
-            {/* include input fields and buttons */}
-            <SignUpForm />
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="outline" mr={3} onClick={closeSignUpModal}>
-              Close
-            </Button>
-            {/* Add a submit button or other actions here */}
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </ChakraProvider>
+      </header>
+    </>
   );
 };
 
-export default AppNavBar;
+export default AppNavbar;

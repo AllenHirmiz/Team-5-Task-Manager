@@ -43,12 +43,9 @@ body {
   margin-right: auto;
 }
 #navbar {
-  --navbar-height: 104px;
-  height: var(--navbar-height);
   background-color: var(--navbar-bg-color);
-  left: 0;
-  right: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  color: #ffffff;
 }
 .navbar-container {
   display: flex;
@@ -58,6 +55,40 @@ body {
 }
 .navbar-item {
   margin: 0.4em;
+}
+
+.home-link, #navbar  {
+  padding: 0 !important;
+}
+
+@media screen and (min-width: 900px) {
+  .navbar-collapse {
+    flex-grow: 0;
+  }
+}
+
+.nav-pills {
+  display: block;
+}
+
+.nav-pills .nav-item{
+  margin: 2px !important;
+  display: inline-block;
+  padding: 5px;
+}
+
+.nav-pills .nav-item .nav-link{
+  margin: 2px !important;
+  padding: 10px;
+}
+
+.btn-close {
+  width: 50px;
+  margin: 5px !important;
+}
+
+.navbar>.container {
+  max-width: 800px;
 }
 
 .logo {
@@ -72,17 +103,14 @@ body {
   display: flex;
   font-weight: 400;
   align-items: center;
+  width: auto;
+  justify-content: center;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
 }
 
 .home-link:is(:focus, :hover) {
   color: var(--navbar-text-color-focus);
-}
-
-.navbar-link {
-  justify-content: center;
-  width: 100%;
-  padding: 0.4em 0.8em;
-  border-radius: 5px;
 }
 
 .navbar-link:is(:focus, :hover) {
