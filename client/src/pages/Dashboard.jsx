@@ -253,7 +253,13 @@ function Dashboard() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Box p={{ base: 4, md: 10 }} bg="teal.50" borderRadius="md" width={"100vw"} height={"100vh"} >
+    <Box
+      p={{ base: 4, md: 10 }}
+      bg="teal.50"
+      borderRadius="md"
+      width={"100vw"}
+      height={"100vh"}
+    >
       {newTask.username && (
         <Text
           fontSize={{ base: "xl", md: "2xl" }}
@@ -277,12 +283,14 @@ function Dashboard() {
           <ModalCloseButton />
           <ModalBody>
             <FormControl mt={4}>
-              <FormLabel>Username</FormLabel>
+              <FormLabel></FormLabel>
               <Input
                 type="text"
                 name="username"
                 value={newTask.username}
                 onChange={handleInputChange}
+                readOnly
+                border={"none"}
               />
             </FormControl>
             <FormControl mt={4}>
@@ -353,7 +361,7 @@ function Dashboard() {
           display={{ base: "none", md: "table-header-group" }}
         >
           <Tr>
-            <Th color="white">Username</Th>
+            {/* <Th color="white">Username</Th> */}
             <Th color="white">Title</Th>
             <Th color="white">Description</Th>
             <Th color="white">Date Created</Th>
@@ -365,12 +373,12 @@ function Dashboard() {
         <Tbody>
           {data.todo.map((task, index) => (
             <Tr key={index} _hover={{ bg: "teal.100" }}>
-              <Td display={{ base: "flex", md: "table-cell" }}>
+              {/* <Td display={{ base: "flex", md: "table-cell" }}>
                 <Text display={{ base: "block", md: "none" }} fontWeight="bold">
                   Username:{" "}
                 </Text>
                 {task.username}
-              </Td>
+              </Td> */}
 
               <Td display={{ base: "flex", md: "table-cell" }}>
                 <Text display={{ base: "block", md: "none" }} fontWeight="bold">
