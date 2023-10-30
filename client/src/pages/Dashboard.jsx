@@ -1,3 +1,4 @@
+// Import necessary libraries and components
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -25,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { gql } from "@apollo/client";
 
-// GraphQL queries and mutations
+// GraphQL queries for fetching todos
 const GET_TODOS = gql`
   query GetTodosQuery {
     todo {
@@ -40,6 +41,7 @@ const GET_TODOS = gql`
   }
 `;
 
+// GraphQL mutations for adding, editing, and removing todos
 const ADD_TODO = gql`
   mutation AddTodoMutation(
     $username: String!
@@ -106,16 +108,8 @@ const EDIT_TODO = gql`
   }
 `;
 
-const DELETE_TODO = gql`
-  mutation DeleteTodoMutation($id: ID!) {
-    deleteTodo(_id: $id) {
-      _id
-    }
-  }
-`;
-
 function Dashboard() {
-  // States for task management
+  // Initialize state variables
   const [newTask, setNewTask] = useState({
     username: "",
     title: "",
@@ -127,7 +121,7 @@ function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const [editTaskIndex, setEditTaskIndex] = useState(null);
 
-  // Apollo client hooks for data fetching and mutation
+  // Fetch todos and setup mutations using Apollo client
   const { loading, error, data } = useQuery(GET_TODOS);
 
   const [addTodo] = useMutation(ADD_TODO, {
@@ -146,7 +140,7 @@ function Dashboard() {
 
   const [removeTodo] = useMutation(REMOVE_TODO);
 
-  // Handlers for various actions
+  // Handler to delete a todo
   const handleDelete = async (index) => {
     const todoId = data.todo[index]._id;
     try {
@@ -165,6 +159,7 @@ function Dashboard() {
     }
   };
 
+  // Handler to capture input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setNewTask((prevTask) => ({
@@ -173,6 +168,7 @@ function Dashboard() {
     }));
   };
 
+  // Handler to save or update a task
   const handleSaveTask = async () => {
     if (editTaskIndex !== null) {
       const taskToUpdate = {
@@ -207,6 +203,7 @@ function Dashboard() {
     }
   };
 
+  // Handler to open the edit modal
   const handleEditOpen = (index) => {
     const taskToEdit = data.todo[index];
     setNewTask(taskToEdit);
@@ -214,6 +211,7 @@ function Dashboard() {
     setEditTaskIndex(index);
   };
 
+  // Handler to close the modal and reset the state
   const handleCloseModal = () => {
     setIsOpen(false);
     setEditTaskIndex(null);
@@ -227,6 +225,7 @@ function Dashboard() {
     });
   };
 
+  // Utility function to format date
   const formatDate = (timestampOrDateString) => {
     if (!timestampOrDateString) return "Not set"; // Handle null or undefined values
 
@@ -248,10 +247,11 @@ function Dashboard() {
     return date.toLocaleDateString(undefined, options);
   };
 
-  // Render logic with conditional checks
+  // Display loading or error messages
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Render the main component
   return (
     <Box
       p={{ base: 4, md: 10 }}
