@@ -87,6 +87,9 @@ THEN the app is accessible and responsive.
 **Task Pro Front Page**
 ![Task Pro Front Page](assets/images/homepage.png)
 
+**Dashboard**
+![Dashboard Page](assets/images/dashboard.jpg)
+
 ## Technologies
 
 - [Apollo Client & Server](https://www.apollographql.com/)
