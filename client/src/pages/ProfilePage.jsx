@@ -138,7 +138,8 @@ function ProfilePage() {
 
         {/* large top card goes here */}
         <Card maxW={"800px"}>
-          <CardBody>
+          <CardBody >
+          <Heading size="md">Personal Information</Heading>
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
                 <Heading size="xs" textTransform="uppercase">
@@ -176,9 +177,7 @@ function ProfilePage() {
           </CardBody>
 
           <CardHeader>
-            <Heading size="md">Personal Information</Heading>
-            <Button
-              w={"100%"}
+            <Button w={"100%"}
               mt={8}
               bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
               color={"white"}
