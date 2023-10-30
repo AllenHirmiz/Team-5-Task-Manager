@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const todoSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    required: false,
   },
   title: {
     type: String,

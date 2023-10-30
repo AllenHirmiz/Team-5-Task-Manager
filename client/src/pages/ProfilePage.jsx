@@ -84,10 +84,11 @@ function ProfilePage() {
       justifyContent={"center"}
       display={"flex"}
       w={"full"}
-      width={"100vw"} height={"100vh"} 
+      width={"100vw"}
+      height={"100vh"}
     >
       <GridItem p={4}>
-      <Box
+        <Box
           maxW={"800px"}
           bg={useColorModeValue("white", "gray.800")}
           boxShadow={"2xl"}
@@ -105,7 +106,6 @@ function ProfilePage() {
             objectFit="cover"
             alt="#"
           />
-          
 
           <Box p={6}>
             <Stack spacing={0} align={"center"} mb={5}>
@@ -113,7 +113,7 @@ function ProfilePage() {
                 {user.name}
               </Heading>
               {/* <Text color={"gray.500"}>Full Stack Developer</Text> */}
-              {/* <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text> */} 
+              {/* <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text> */}
             </Stack>
 
             <Button
@@ -135,12 +135,9 @@ function ProfilePage() {
             </Button>
           </Box>
         </Box>
-        
-        
+
         {/* large top card goes here */}
         <Card maxW={"800px"}>
-        
-
           <CardBody >
           <Heading size="md">Personal Information</Heading>
             <Stack divider={<StackDivider />} spacing="4">
@@ -180,12 +177,15 @@ function ProfilePage() {
           </CardBody>
 
           <CardHeader>
-            
             <Button w={"100%"}
               mt={8}
               bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
               color={"white"}
-              rounded={"md"} onClick={openModal} position="absolute" right="0">
+              rounded={"md"}
+              onClick={openModal}
+              position="absolute"
+              right="0"
+            >
               Edit Profile
             </Button>
           </CardHeader>
