@@ -90,6 +90,12 @@ THEN the app is accessible and responsive.
 **Dashboard**
 ![Dashboard Page](assets/images/dashboard.jpg)
 
+**Profile**
+![Profile Page](assets/images/profile.jpg)
+
+**Contact**
+![Contact Page](assets/images/contact.jpg)
+
 ## Technologies
 
 - [Apollo Client & Server](https://www.apollographql.com/)
@@ -107,6 +113,8 @@ THEN the app is accessible and responsive.
 
 For questions or feedback, please reach out to:
 
-- Allen
-- Meriam
+- Allen - [allenihirmiz@gmail.com](mailto:allenihirmiz@gmail.com)
+
+- Meriam - [meriam.sadio8@gmail.com](mailto:meriam.sadio8@gmail.com)
+
 - Christian - [csetiawan@yahoo.com](mailto:csetiawan@yahoo.com)
