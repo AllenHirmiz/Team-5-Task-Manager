@@ -298,9 +298,7 @@ function ProfilePage() {
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>
-                Edit Profile For: {profileData.fullName}
-              </ModalHeader>
+              <ModalHeader>Edit Profile For: {user.name}</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 {/* <FormControl>
