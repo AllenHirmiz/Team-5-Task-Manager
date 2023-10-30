@@ -40,9 +40,9 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 
 function ProfilePage() {
-  const {loading, data } = useQuery(QUERY_ME)
-  const user = data?.me || {}
-  console.log(user)
+  const { loading, data } = useQuery(QUERY_ME);
+  const user = data?.me || {};
+  console.log(user);
   const [profileData, setProfileData] = useState({
     fullName: "John Doe",
     jobTitle: "Full Stack Developer",
@@ -123,7 +123,7 @@ function ProfilePage() {
               <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                 {user.name}
               </Heading>
-              <Text color={"gray.500"}>Full Stack Developer</Text>  
+              <Text color={"gray.500"}>Full Stack Developer</Text>
               <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text>
             </Stack>
 
@@ -168,7 +168,8 @@ function ProfilePage() {
               }}
               leftIcon={<EmailIcon />}
               as="a"
-              onClick=""href={`mailto:${user.email}`}
+              onClick=""
+              href={`mailto:${user.email}`}
             >
               Email
             </Button>
@@ -272,7 +273,7 @@ function ProfilePage() {
                   Job Title
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {user.job}
+                  {profileData.jobTitle}
                 </Text>
               </Box>
               <Box>
@@ -280,7 +281,7 @@ function ProfilePage() {
                   Company
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {user.company}
+                  {profileData.company}
                 </Text>
               </Box>
               <Box>
@@ -288,7 +289,7 @@ function ProfilePage() {
                   Address
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {user?.address?.street}, {user?.address?.city}, {user?.address?.state} {user?.address?.zipcode}
+                  {profileData.address}
                 </Text>
               </Box>
             </Stack>
@@ -297,18 +298,23 @@ function ProfilePage() {
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Edit Profile</ModalHeader>
+              <ModalHeader>
+                Edit Profile For: {profileData.fullName}
+              </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel>Full Name</FormLabel>
                   <Input
                     type="text"
                     name="fullName"
                     value={profileData.fullName}
                     onChange={handleInputChange}
+                    readOnly
+                    style={{ border: "none" }}
                   />
-                </FormControl>
+                </FormControl> */}
+
                 <FormControl mt={4}>
                   <FormLabel>Job Title</FormLabel>
                   <Input
