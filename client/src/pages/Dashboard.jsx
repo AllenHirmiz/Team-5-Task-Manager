@@ -253,7 +253,7 @@ function Dashboard() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Box p={{ base: 4, md: 10 }} bg="teal.50" borderRadius="md">
+    <Box p={{ base: 4, md: 10 }} bg="teal.50" borderRadius="md" width={"100vw"} height={"100vh"} >
       {newTask.username && (
         <Text
           fontSize={{ base: "xl", md: "2xl" }}
