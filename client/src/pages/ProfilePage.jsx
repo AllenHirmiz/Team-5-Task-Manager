@@ -36,8 +36,13 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
 
 function ProfilePage() {
+  const {loading, data } = useQuery(QUERY_ME)
+  const user = data?.me || {}
+  console.log(user)
   const [profileData, setProfileData] = useState({
     fullName: "John Doe",
     jobTitle: "Full Stack Developer",
@@ -116,9 +121,9 @@ function ProfilePage() {
           <Box p={6}>
             <Stack spacing={0} align={"center"} mb={5}>
               <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-                John Doe
+                {user.name}
               </Heading>
-              <Text color={"gray.500"}>Full Stack Developer</Text>
+              <Text color={"gray.500"}>Full Stack Developer</Text>  
               <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text>
             </Stack>
 
@@ -163,7 +168,7 @@ function ProfilePage() {
               }}
               leftIcon={<EmailIcon />}
               as="a"
-              onClick=""href="mailto:meriam.sadio8@gmail.com"
+              onClick=""href={`mailto:${user.email}`}
             >
               Email
             </Button>
@@ -259,7 +264,7 @@ function ProfilePage() {
                   Full Name
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {profileData.fullName}
+                  {user.name}
                 </Text>
               </Box>
               <Box>
@@ -267,7 +272,7 @@ function ProfilePage() {
                   Job Title
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {profileData.jobTitle}
+                  {user.job}
                 </Text>
               </Box>
               <Box>
@@ -275,7 +280,7 @@ function ProfilePage() {
                   Company
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {profileData.company}
+                  {user.company}
                 </Text>
               </Box>
               <Box>
@@ -283,7 +288,7 @@ function ProfilePage() {
                   Address
                 </Heading>
                 <Text pt="2" fontSize="sm">
-                  {profileData.address}
+                  {user?.address?.street}, {user?.address?.city}, {user?.address?.state} {user?.address?.zipcode}
                 </Text>
               </Box>
             </Stack>

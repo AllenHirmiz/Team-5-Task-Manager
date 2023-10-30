@@ -20,15 +20,15 @@ function AppNavbar() {
           <Nav className="me-auto navbar-left navbar navbar-dark bg-dark">
             {Auth.loggedIn() ? (
                 <>
-                <Nav.Link className="navbar-link nav-link" href="/Dashboard">Dashboard</Nav.Link>
-                <Nav.Link className="navbar-link nav-link" href="/Profile">Profile</Nav.Link>
-                <Nav.Link className="navbar-link nav-link" href="/Contact">Contact</Nav.Link>
+                <Nav.Link className="navbar-link nav-link" href="/dashboard">Dashboard</Nav.Link>
+                <Nav.Link className="navbar-link nav-link" href="/profile">Profile</Nav.Link>
+                <Nav.Link className="navbar-link nav-link" href="/contact">Contact</Nav.Link>
                 <Nav.Link className="navbar-link nav-link modal-header" onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
                 <>
                 <Nav.Link className="navbar-link nav-link" href="/">About TaskPro</Nav.Link>
-                <Nav.Link className="navbar-link nav-link" href="/Contact">Contact Us</Nav.Link>
+                <Nav.Link className="navbar-link nav-link" href="/contact">Contact Us</Nav.Link>
                 <Nav.Link className="navbar-link nav-link" onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
                 </>
               )}
