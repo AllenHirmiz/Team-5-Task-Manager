@@ -112,11 +112,9 @@ function ProfilePage() {
               <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                 {user.name}
               </Heading>
-              {/* <Text color={"gray.500"}>Full Stack Developer</Text> */}
-              {/* <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text> */}
             </Stack>
 
-            <Button
+            {/* <Button
               w={"100%"}
               mt={8}
               bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
@@ -132,14 +130,14 @@ function ProfilePage() {
               href={`mailto:${user.email}`}
             >
               Email
-            </Button>
+            </Button> */}
           </Box>
         </Box>
 
         {/* large top card goes here */}
         <Card maxW={"800px"}>
-          <CardBody >
-          <Heading size="md">Personal Information</Heading>
+          <CardBody>
+            <Heading size="md">Personal Information</Heading>
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
                 <Heading size="xs" textTransform="uppercase">
@@ -176,17 +174,36 @@ function ProfilePage() {
             </Stack>
           </CardBody>
 
-          <CardHeader>
-            <Button w={"100%"}
+          <CardHeader direction="row" spacing={2} align="center">
+            <Button
+              w={"40%"}
               mt={8}
               bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
               color={"white"}
               rounded={"md"}
               onClick={openModal}
-              position="absolute"
-              right="0"
+              // position="absolute"
+              // right="0"
             >
               Edit Profile
+            </Button>
+            <Button
+              w={"40%"}
+              mt={8}
+              ml={6}
+              bg={useColorModeValue("#319795", "gray.900")} // original button color was #151f21
+              color={"white"}
+              rounded={"md"}
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+              leftIcon={<EmailIcon />}
+              as="a"
+              onClick=""
+              href={`mailto:${user.email}`}
+            >
+              Email
             </Button>
           </CardHeader>
 
@@ -196,18 +213,6 @@ function ProfilePage() {
               <ModalHeader>Edit Profile For: {user.name}</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                {/* <FormControl>
-                  <FormLabel>Full Name</FormLabel>
-                  <Input
-                    type="text"
-                    name="fullName"
-                    value={profileData.fullName}
-                    onChange={handleInputChange}
-                    readOnly
-                    style={{ border: "none" }}
-                  />
-                </FormControl> */}
-
                 <FormControl mt={4}>
                   <FormLabel>Job Title</FormLabel>
                   <Input
