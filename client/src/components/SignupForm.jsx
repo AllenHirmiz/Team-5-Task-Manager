@@ -175,7 +175,7 @@ const SignupForm = () => {
             )
           }
           type="submit"
-          variant="success"
+          style={{ backgroundColor: 'teal', color: 'white' }} 
         >
           Submit
         </Button>
