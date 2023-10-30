@@ -106,7 +106,7 @@ const SignupForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        {/* <Form.Group className="mb-3">
           <Form.Label htmlFor="job title">Job Title</Form.Label>
           <Form.Control
             type="text"
@@ -134,7 +134,7 @@ const SignupForm = () => {
           <Form.Control.Feedback type="invalid">
             Company  is required!
           </Form.Control.Feedback>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group className="mb-3">
           <Form.Label htmlFor="email">Email</Form.Label>
