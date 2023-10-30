@@ -124,7 +124,7 @@ function ProfilePage() {
                 {user.name}
               </Heading>
               <Text color={"gray.500"}>Full Stack Developer</Text>
-              <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text>
+              {/* <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text> */} 
             </Stack>
 
             <Stack direction={"row"} justify={"center"} spacing={6}>
@@ -360,7 +360,7 @@ function ProfilePage() {
         {/*  small bottom card goes here */}
         <Card>
           <CardHeader>
-            <Heading size="md">Most Recent Projects</Heading>
+            <Heading size="md">Future Development</Heading>
           </CardHeader>
 
           <CardBody>
@@ -398,7 +398,7 @@ function ProfilePage() {
         {/* small bottom card goes here */}
         <Card>
           <CardHeader>
-            <Heading size="md">Client Report</Heading>
+            <Heading size="md">Future Development</Heading>
           </CardHeader>
 
           <CardBody>
