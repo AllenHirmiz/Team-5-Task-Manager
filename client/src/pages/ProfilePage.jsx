@@ -123,7 +123,7 @@ function ProfilePage() {
               <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                 {user.name}
               </Heading>
-              <Text color={"gray.500"}>Full Stack Developer</Text>
+              {/* <Text color={"gray.500"}>Full Stack Developer</Text> */}
               {/* <Text color={"gray.500"}>Bay Area, San Francisco, CA</Text> */} 
             </Stack>
 
